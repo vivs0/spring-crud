@@ -1,0 +1,70 @@
+package com.example.crud.entities;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="user")
+@NamedQuery(name="User.list",query="select u from User u")
+public class User {
+	
+	@Id	
+	@Column(name="ID")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int ID;
+	
+	@Column(name="password")
+	private String Password;
+	
+/*	@OneToOne
+	@JoinColumn(name="status", foreignKey=@ForeignKey(name="fk_user_status"),referencedColumnName="id")*/
+	private Status status;
+	
+/*	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="username",foreignKey=@ForeignKey(name="fk_employee_login_credential"),referencedColumnName="user_email")*/
+	private Employee employee;
+	
+	public User(){}
+
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+	public String getPassword() {
+		return Password;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
+	}
+	@Override
+	public String toString() {
+		return "User [ID=" + ID + ", Password=" + Password + ", status=" + status + ", employee=" + employee + "]";
+	}
+
+}

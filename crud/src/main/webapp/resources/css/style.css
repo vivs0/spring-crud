@@ -1,0 +1,64 @@
+@CHARSET "ISO-8859-1";
+.col-border{
+	border-style: solid;
+	border-width: 2px;
+	border-color: red;
+}
+.form-mod{
+	width:100%;
+	margin-right: 0px;
+}
+
+.form-result{
+	width:100%;
+	height:200px;
+}
+.errors{
+	color:Red;
+}
+.demo{
+	height:20px;
+	margin-right:1px;
+	text-align: center;	
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+	font-weight:bolder;
+	font-family:monospace;
+	border: thin black solid;
+}
+.input-col
+{
+	margin-left:1px;
+	height:25px;
+	padding-left: 0px !important;	
+	padding-right:0px !important;
+}
+.view-row{
+	width:inherit;
+	height:20px;
+	padding-left: 10px;
+}
+input[type="text"]
+{
+	width:100%;
+	margin-left:0px;
+}
+.update-btn
+{
+	padding-left:0px !important;
+	padding-right:0px !important;
+	margin-left:0px;
+	width:auto !important;
+	height:25px;
+	margin-bottom: 3px;
+}
+.cancel-btn
+{	
+	padding-left:0px !important;
+	padding-right:0px !important;
+	margin-left:1px;
+	width:20px !important;
+	height:25px;
+	margin-bottom: 3px;
+}

@@ -1,0 +1,176 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ page session="false" %>
+<html>
+<head>
+<c:url var="home" value="/" scope="request"></c:url>
+<link rel="stylesheet" href="${home}resources/css/style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>View or Update Records</title>
+<script type="text/javascript">
+    $(document).ready(function(){
+       $('div.cancel-btn').hide(); 
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var employee = {};
+        var user = {};
+        var status = {};
+        var data = {"employee":{"ID":100,"First_Name":"vivek","Contact":12345,"Email":"emailadd","Salary":12345,"user":{"Password":"2100","status":{"statusName":"Active"}}}}
+    });
+</script>
+    
+<script type="text/javascript">
+    $(document).ready(function(){
+		var id = '';
+        var cancelBtn;
+        var dd='';
+        var temp; 
+        
+       $('div > div > div').click(function(){
+
+    	   if(id=='')
+    	   {
+               	temp = new Map();
+    	   }
+           if(id=='' ||id==$(this).parents('div.row').attr('id'))
+           {
+               temp.set($(this).prev().attr('id') ,$(this).prev("input").val());
+                   
+               
+               id = $(this).parents('div.row').attr('id');
+               $(this).prev("input[disabled]").prop("disabled",function(i,v){
+	        	   return !v;
+	           }).focus();
+
+	           $('#'+id+' :nth-child(13n)').show();
+	           $('#'+id+' :nth-child(12n)').children('button').html('Update');
+	           $('#'+id+' :nth-child(12n)').children('button').prop('name','Update');
+	
+	           cancelBtn = $('#'+id+' :nth-child(13n)').children('button').attr('id');
+	           $(this).hide();
+           }else{
+        	   alert("You can only edit one row. Update your current row or cancel");
+           }
+       });
+        
+       $(':button.cnc').click(function(){
+           $('#'+id).children().each(function(){ //code for searchin enabled elements
+               $(this).children('input:enabled').each(function(){
+                   $(this).val(temp.get($(this).attr('id')) );
+                   $(this).prop('disabled',true);
+                   $('.wall').show();
+               });
+           });
+           $('#'+id+' :nth-child(12n)').children('button').html('Edit');
+           $('#'+id+' :nth-child(12n)').children('button').prop('name','Edit');
+           id='';
+           temp = null;
+           $(this).parents('.cancel-btn').hide(); 
+       });
+        
+        
+        $(':button.up').click(function(){
+            var arr = {};
+            arr.push(temp);
+            alert(arr)
+        });
+    });
+</script>
+</head>
+<body>
+	<center><h1>Crud : View or Update Records</h1></center>
+	<div class="container-fluid">
+		<div class="row view-row">
+			<div class="col-sm-1 demo">ID</div>
+			<div class="col-sm-1 demo">First Name</div>
+			<div class="col-sm-1 demo">Last Name</div>
+			<div class="col-sm-1 demo">Contact</div>
+			<div class="col-sm-1 demo">Email</div>
+			<div class="col-sm-1 demo">D.O.B</div>
+			<div class="col-lg-1 demo">Joining Date</div>
+			<div class="col-sm-1 demo">Salary</div>
+			<div class="col-sm-1 demo">Username</div>
+			<div class="col-sm-1 demo">Status</div>
+			<div class="col-sm-1 demo">Role</div>			
+		</div>
+		<div class="form-body form-mod">
+			<form:form action="Update" method="post" modelAttribute="user">
+								
+				<c:forEach items="${userlist}" var="val" varStatus="i">
+
+                    <div id="${i.index}" class="row view-row">
+									
+					
+					<div class="debug col-sm-1 input-col">
+						<form:input id="emp-id-${i.index}" disabled="true" path="employee.ID" value="${val.employee.ID}"/>
+					</div>
+
+					<div class="col-sm-1 input-col">
+						<form:input id="emp-first-name-${i.index}" disabled="true" path="employee.First_Name" value="${val.employee.first_Name}"/>
+						<div class="wall" style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+					</div>
+
+					<div class="col-sm-1 input-col">
+						<form:input id="emp-last-name-${i.index}" disabled="true" path="employee.Last_Name" value="${val.employee.last_Name}"/>
+						<div class="wall" style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+					</div>
+
+					<div class="col-sm-1 input-col">
+						<form:input id="emp-contact-${i.index}" disabled="true" path="employee.Contact" value="${val.employee.contact}"/>
+						<div class="wall"  style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+					</div>
+
+					<div class="col-sm-1 input-col">
+						<form:input id="emp-email-${i.index}" disabled="true" path="employee.Email" value="${val.employee.email}"/>
+						<div class="wall"  style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+					</div>
+
+					<div class="col-sm-1 input-col">
+						<form:input id="emp-dob-${i.index}" disabled="true" path="employee.DateOfBirth" value="${val.employee.dateOfBirth}"/>
+						<div class="wall"  style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+					</div>
+
+					<div class="col-sm-1 input-col">
+						<form:input id="emp-doj-${i.index}" disabled="true" path="employee.DateOfJoining" value="${val.employee.dateOfJoining }"/>
+						<div class="wall"  style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+					</div>
+
+					<div class="col-sm-1 input-col">
+						<form:input id="emp-sal-${i.index}" disabled="true" path="employee.Salary" value="${val.employee.salary}"/>
+						<div class="wall"  style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+					</div>
+
+					<div class="col-sm-1 input-col">
+						<form:input id="emp-username-${i.index}" disabled="true" path="employee.Email" value="${val.employee.email }"/>
+						<div class="wall"  style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+					</div>
+					<div class="col-sm-1 input-col">
+						<form:input path="status.statusName" disabled="true" value="${val.status.statusName }"/>
+						<div class="wall"  style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>
+					</div>
+
+					<div class="col-sm-1 input-col">
+						<input type="text" >
+					</div>
+					<div class="col-sm-1 update-btn">		
+						<button id="btn-${i.index}" class="btn btn-info btn-xs up" type="button"  name="Edit">Edit</button>
+					</div>
+					<div class="col-sm-1 cancel-btn">		
+						<button id="Cancelbtn-${i.index}" class="btn btn-info btn-xs cnc" type="button"  name="Cancel">X</button>
+					</div>
+					
+					</div>
+					
+				</c:forEach>
+				<input type="submit">
+				</form:form>
+		</div>
+	</div>
+</body>
+</html>

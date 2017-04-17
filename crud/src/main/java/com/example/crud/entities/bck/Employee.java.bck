@@ -1,0 +1,136 @@
+package com.example.crud.entities;
+
+import java.io.Serializable;
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.example.crud.validation.DateValidation;
+import com.example.crud.validation.Phone;
+import com.example.crud.validation.UniqueKey;
+
+@Entity
+@Table(name="employee")
+public class Employee implements Serializable{
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	private int ID;
+	
+	@Column(name="User_first_name")
+//	@NotEmpty(message="Field cannot be left blank")
+	private String First_Name;
+	
+	@Column(name="user_last_name")
+	private String Last_Name;
+	
+	@Column(name="user_contact")
+/*	@NotNull(message="Contact cannot be empty")
+	@Phone(message="Invalid contact")
+	@UniqueKey(columnName="Contact",className=Employee.class,message="contact already registered")*/
+	private Long Contact;
+	
+/*	@Column(name="user_email",unique=true)
+	@NotEmpty(message="Email field cannot be left blank")
+	@org.hibernate.validator.constraints.Email(regexp="^([a-zA-Z.]){4,30}\\w+@[-+.0-9A-Z_a-z]+\\.[A-Za-z]{2,4}$", message="invalid email")
+	@Length(min=8,max=50)
+	@UniqueKey(columnName="Email",className=Employee.class,message="Email already registered")*/
+	private String Email;
+	
+	@Column(name="user_date_birth")
+	@DateTimeFormat(iso = ISO.DATE,pattern="dd-MM-yyyy")
+/*	@DateValidation(message = "invalid date")*/
+	private Date DateOfBirth;
+
+	@Column(name="user_joining_date")
+	@DateTimeFormat(iso = ISO.DATE,pattern="dd-MM-yyyy")
+/*	@DateValidation(allowNull=true)*/
+	private Date DateOfJoining;
+	
+	@Column(name="user_salary")
+	private Integer Salary;
+		
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+	public String getFirst_Name() {
+		return First_Name;
+	}
+
+	public void setFirst_Name(String first_Name) {
+		First_Name = first_Name;
+	}
+
+	public String getLast_Name() {
+		return Last_Name;
+	}
+
+	public void setLast_Name(String last_Name) {
+		Last_Name = last_Name;
+	}
+
+	public Long getContact() {
+		return Contact;
+	}
+
+	public void setContact(Long contact) {
+			Contact = contact;
+	}
+
+	public String getEmail() {
+		return Email;
+	}
+
+	public void setEmail(String email) {
+		Email = email;
+	}
+
+	public Date getDateOfBirth() {
+		return DateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+			DateOfBirth = dateOfBirth;
+	}
+
+	public Date getDateOfJoining() {
+		return DateOfJoining;
+	}
+
+	public void setDateOfJoining(Date dateOfJoining) {
+		DateOfJoining = dateOfJoining;
+	}
+
+	public Integer getSalary() {
+		return Salary;
+	}
+
+	public void setSalary(Integer salary) {
+		Salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "Users [ID=" + ID + ", First_Name=" + First_Name + ", Last_Name=" + Last_Name + ", Contact=" + Contact
+				+ ", Email=" + Email + ", DateOfBirth=" + DateOfBirth + ", DateOfJoining=" + DateOfJoining + ", Salary="
+				+ Salary + "]";
+	}
+
+}
